@@ -1,17 +1,5 @@
 @import "_mixins/font-face";
 
-@include font-face("PTSans", "../fonts/PTSans/Regular/PTSans-Regular", normal);
-@include font-face("PTSans", "../fonts/PTSans/RegularItalic/PTSans-RegularItalic", normal, italic);
-@include font-face("PTSans", "../fonts/PTSans/Bold/PTSans-Bold", bold);
-@include font-face("PTSans", "../fonts/PTSans/BoldItalic/PTSans-BoldItalic", bold, italic);
-
-@include font-face("P22UndergroundCYPro", "../fonts/P22UndergroundCYPro/Book/P22UndergroundCYPro-Book", normal);
-@include font-face("P22UndergroundCYPro", "../fonts/P22UndergroundCYPro/Medium/P22UndergroundCYPro-Medium", 500);
-@include font-face("P22UndergroundCYPro", "../fonts/P22UndergroundCYPro/Demi/P22UndergroundCYPro-Demi", 600);
-@include font-face("P22UndergroundCYPro", "../fonts/P22UndergroundCYPro/Heavy/P22UndergroundCYPro-Heavy", 800);
-
-@include font-face("Helvetica", "../fonts/Helvetica/Regular/Helvetica-Regular", normal);
-@include font-face("Helvetica", "../fonts/Helvetica/Bold/Helvetica-Bold", bold);
-
-
-
+@include font-face("Roboto", "../fonts/Roboto/RobotoRegular/Roboto-Regular", normal);
+@include font-face("Roboto", "../fonts/Roboto/RobotoMedium/Roboto-Medium", 500);
+@include font-face("Roboto", "../fonts/Roboto/RobotoBold/Roboto-Bold", bold);

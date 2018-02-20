@@ -29,10 +29,7 @@
     "bootstrap-grid": "^3.3.6-beta.1",
     "font-awesome": "fontawesome#^4.7.0",
     "owl.carousel": "owl-carousel2#^2.2.1",
-    "css-hamburgers": "^0.9.1",
     "jquery.maskedinput": "^1.4.1",
-    "equalheights": "equalHeights#*",
-    "selectize": "^0.12.4",
-    "fancybox": "^3.2.5"
+    "equalheights": "equalHeights#*"
   }
 }

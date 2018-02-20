@@ -3,10 +3,9 @@ $(function() {
     var $wnd = $(window);
     var $top = $(".page-top");
     var $html = $("html, body");
-    var $header = $(".section-header");
-    var $menu = $(".main-menu");
-    var $loader = $(".preloader");
     var $thanks = $("#thanks");
+    var $tests = $(".test");
+    var carouselLength = 6;    
 
     var utms = parseGET();
 
@@ -14,13 +13,10 @@ $(function() {
         window.sessionStorage.setItem('utms', JSON.stringify(utms));
     } else {
         utms = JSON.parse(window.sessionStorage.getItem('utms') || "[]");
-    }
-
-    // $wnd.on('load', function() {        
-    //     $loader.fadeOut('slow');            
-    // });
+    }    
 
     $wnd.scroll(function() { onscroll(); });
+    $wnd.resize(function() { onresize(); });
 
     var onscroll = function() {
         if($wnd.scrollTop() > $wnd.height()) {
@@ -28,130 +24,102 @@ $(function() {
         } else {
             $top.removeClass('active');
         }
-
-        var scrollPos = $wnd.scrollTop() + 83;
-
-        $menu.find("a").each(function() {
-            var link = $(this);
-            var id = link.attr('href');
-            var section = $(id);
-            var sectionTop = section.offset().top;
-
-            if(sectionTop <= scrollPos && (sectionTop + section.height()) >= scrollPos) {
-                link.addClass('active');
-            } else {
-                link.removeClass('active');
-            }
-        });
     }
 
     onscroll();
+
+    var onresize = function() {
+        if($wnd.width() < 1200) {
+            carouselLength = 6
+        } else if($wnd.width() < 992) {
+            carouselLength = 4
+        } else if($wnd.width() < 768) {
+            carouselLength = 3;
+        } else if($wnd.width() < 580) {
+            carouselLength = 2;
+        } else {
+            carouselLength = 6;
+        }
+
+        setTimeout(function() {
+            $(".present").equalHeights();            
+        }, 10);
+    }
+
+    onresize();
 
     $top.click(function() {
         $html.stop().animate({ scrollTop: 0 }, 'slow', 'swing');
     });
 
-    $(".hamburger").click(function() {
-        $this = $(this);
+    $(".test .button").click(function() {
+        var $test = $(this).closest('.test');
+        var n = $test.find('input:checked').length;
 
-        if(!$this.hasClass("is-active")) {
-            $this.addClass('is-active');
-            $menu.slideDown('700');
-        } else {
-            $this.removeClass('is-active');
-            $menu.slideUp('700');
-        }
+        if($test.hasClass('has-form')) {
+            var $requireds = $test.find(':required');
+            var formValid = true;
 
-        return false;
-    });  
+            $requireds.each(function() {
+                $elem = $(this);
 
-    $(".main-menu a").click(function(e) {
-        e.preventDefault();
-        var $href = $(this).attr('href');
-        if($href.length > 0) {
-            var dh = 82;
-            var top = $href.length == 1 ? 0 : $($href).offset().top - dh;
-            $html.stop().animate({ scrollTop: top }, "slow", "swing");
-        }
-    });
-
-    $(".modal-open").click(function() {
-        var id = $(this).data('id');
-        var $dialog = $('#'+id);        
-
-        $dialog.fadeIn(500);
-        return false;
-    });
-
-    $(".modal").click(function() {
-        var $modal = $(this);
-        closeModal($modal);
-    });
-
-    $(".modal-content").click(function(e) {
-        e.stopPropagation();
-    });
-
-    $(".modal-close").click(function() {
-        var $modal = $(this).closest('.modal');
-        closeModal($modal);
-    });
-
-    function closeModal($modal) {
-        $modal.fadeOut(500);
-
-        var $form = $modal.find('form');
-        if($form.length > 0) $form[0].reset();
-
-        var $phone = $form.find('.phone');
-        if($phone.length > 0) $phone.removeClass('error');
-    }
-
-    $(".form-submit").click(function(e) {
-        e.preventDefault();
-        
-        var $form = $(this).closest('form');
-        var $requireds = $form.find(':required');
-        var formValid = true;
-
-        $requireds.each(function() {
-            $elem = $(this);
-
-            if(!$elem.val() || !checkInput($elem)) {
-                $elem.addClass('error');
-                formValid = false;
-            }
-        });
-
-        var data = $form.serialize();
-
-        if(Object.keys(utms).length > 0) {
-            for(var key in utms) {
-                data += '&' + key + '=' + utms[key];
-            }
-        } else {
-            data += '&utm=Прямой переход'
-        } 
-
-        if(formValid) {
-            $.ajax({
-                type: "POST",
-                url: "/mail.php",
-                data: data
-            }).done(function() {                
+                if(!$elem.val() || !checkInput($elem)) {
+                    $elem.addClass('error');
+                    formValid = false;
+                }
             });
 
-            $(this).closest('.modal').fadeOut(500);
-            $requireds.removeClass('error');
-            $form[0].reset();
-            $thanks.fadeIn(500);
-        }
-    });
+            if(formValid) {
+                if($(this).hasClass("form-submit")) {
+                    var $form = $(this).closest('form');
+                    var data = $form.serialize();
 
-    $(".modal-submit").click(function(e) {
-        e.preventDefault();
-        
-        
+                    if(Object.keys(utms).length > 0) {
+                        for(var key in utms) {
+                            data += '&' + key + '=' + utms[key];
+                        }
+                    } else {
+                        data += '&utm=Прямой переход'
+                    } 
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/mail.php",
+                        data: data
+                    }).done(function() {                
+                    });
+
+                    window.location.href = "/result.html";
+
+                    $requireds.removeClass('error');
+                    $form[0].reset();
+                } else {
+                    $test.removeClass("active");
+                    $test.next().addClass("active");            
+                }    
+            }
+        }
+        else if(n > 0) {
+            $test.removeClass("has-error");
+            $test.removeClass("active");
+            $test.next().addClass("active");
+
+            var index = $tests.index($test) + 1;
+            
+            if(index < 15) { 
+                $(".present-" + index).removeClass("last-active");
+                $(".present-" + (index + 1)).addClass("last-active");
+                $(".present-" + (index + 1)).addClass("active");
+
+                if(index % carouselLength == 0) {
+                    owl.trigger("to.owl.carousel", [index / carouselLength, 200]);
+                }
+            }
+        } else {
+            $test.addClass("has-error");
+        }
+
+        return false;
     });
 
     $(".phone").mask("+7 (999) 999 99 99", {
@@ -160,19 +128,6 @@ $(function() {
         }
     });    
 
-    var $catalogs = $(".carousel-catalog");
-    var $buttons = $(".section-catalog-buttons .button");
-    $buttons.click(function() {
-        $buttons.removeClass("inverse");
-        $(this).addClass("inverse");
-        
-        var id = "#" + $(this).data("id");
-        $catalogs.removeClass("active");
-        $(id).addClass("active");
-    })
-
-    $(".select").selectize();
-
     $("input:required").keyup(function() {
         var $this = $(this);
         if(!$this.hasClass('phone')) {
@@ -180,82 +135,23 @@ $(function() {
         }
     });    
 
-    $(".carousel-reviews").owlCarousel({
+    var owl = $(".present-carousel");
+    owl.owlCarousel({
         items: 1,
         nav: false,
         dots: true,
-        loop: true,
+        loop: false,
         smartSpeed: 500,
-        autoplay: true,
-        autoplayTimeout: 10000,
-        margin: 60,
+        margin: 0,
         navText: ['', ''],
+        responsive: {
+            0: { items: 2 },
+            580: { items: 3 },
+            768: { items: 4 },        
+            992: { items: 6 },
+            1200: { items: 6 },            
+        },
     });        
-
-    $(".carousel-catalog").owlCarousel({
-        nav: false,
-        dots: true,
-        loop: true,
-        smartSpeed: 500,
-        autoplay: true,
-        autoplayTimeout: 10000,
-        margin: 10,
-        navText: ['', ''],
-        onChanged: function(e) {
-            var $gallery = $(this)[0].$element;
-            var $items = $gallery.find('.owl-item');
-            
-            if($items && $items.length > 0) {
-                setTimeout(function() {
-                    $items.removeClass("scale");
-                    var items = $gallery.find(".owl-item.active");
-                    if(items.length == 3) {
-                        items.each(function(i, item) {
-                            if(i == 1) $(item).addClass("scale");                        
-                        });
-                    }
-                }, 0);
-            }
-        },
-        responsive: {
-            0: { items: 1 },
-            768: { items: 2 },        
-            992: { items: 3, margin: 0 },
-        },
-    });
-
-    $(".carousel-certificate").owlCarousel({
-        nav: false,
-        dots: true,
-        loop: true,
-        smartSpeed: 500,
-        autoplay: true,
-        autoplayTimeout: 10000,
-        margin: 10,
-        navText: ['', ''],
-        onChanged: function(e) {
-            var $gallery = $(this)[0].$element;
-            var $items = $gallery.find('.owl-item');
-            
-            if($items && $items.length > 0) {
-                setTimeout(function() {
-                    $items.removeClass("scale");
-                    var items = $gallery.find(".owl-item.active");
-                    if(items.length == 3) {
-                        items.each(function(i, item) {
-                            if(i == 1) $(item).addClass("scale");                        
-                        });
-                    }
-                }, 0);
-            }
-        },
-        responsive: {
-            0: { items: 1 },
-            768: { items: 2 },        
-            992: { items: 3 },
-        },
-    });
-
 
 });
 

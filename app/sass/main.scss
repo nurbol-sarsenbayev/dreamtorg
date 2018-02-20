@@ -101,8 +101,9 @@ body {
 
 	&-content {
 		display: flex;
-		align-items: flex-end;
-		height: 100px;
+		align-items: center;
+		margin-top: 40px;
+		height: 50px;
 	}
 
 	.logo-text {
@@ -144,7 +145,6 @@ body {
 }
 
 .page-wrapper {
-	// padding-top: 130px;
 	overflow: hidden;
 }
 
@@ -195,13 +195,20 @@ body {
 
 	&-present {
 		padding-top: 30px;
+		margin-bottom: 60px;
 		text-align: center;
 
 		&-title {
 			font-weight: bold;
+			margin-bottom: 40px;
 		}
 
 		.present {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			max-width: 166px;
+			margin: 0 auto;
 
 			&-number {
 				font-size: 48px;
@@ -221,11 +228,49 @@ body {
 				height: 31px;
 				border-radius: 50%;
 				background-color: #555555;
+				margin-bottom: 15px;
+				flex-shrink: 0;							
+			}
+
+			&:before, &:after {
+				position: absolute;
+				top: 68px;
+				left: 0;
+				width: 100%;
+				background-color: #555;
+				content: '';
+				z-index: -1;
+				height: 8px;
+			}
+
+			&:after {
+				display: none;
+				left: 50%;
+				width: 50%;
+				background-color: #555;
+			}
+
+			&.last-present:before {
+				width: 50%;
+			}
+
+			&.active:before {
+				background-color: $accent;
+			}
+
+			&.last-active:not(.last-present):after {
+				display: block;
 			}
 
 			&-text {
 				color: #000;
 				font-size: 16px;
+				flex-grow: 1;
+				margin-bottom: 10px;
+			}
+
+			&-img {
+				width: auto !important;
 			}
 
 			&.active {
@@ -245,7 +290,190 @@ body {
 	}
 
 	&-test {
+		text-align: center;
 
+		&-content {
+			border: 3px solid $accent;
+			border-radius: 30px;
+			padding: 40px 20px;
+		}
+
+		.test {
+			display: none;
+
+			&:after {
+				content: 'Необходимо выбрать один из вариантов';
+				color: red;
+				margin-top: 10px;
+				font-size: 16px;
+				display: none;
+			}
+
+			&.has-error:after {
+				display: block;
+			}
+
+			&.active {
+				display: block;
+			}
+
+			&.has-image {
+				.test-question {
+					margin-bottom: 50px;
+				}
+			}
+
+			&-title, &-question {
+				font-size: 24px;
+				font-weight: 500;
+				margin: 0 auto 30px;
+				max-width: 740px;				
+			}
+
+			&-question {
+				margin-bottom: 100px;
+			}
+
+			&-answers {
+				display: flex;
+				flex-wrap: wrap;
+				align-content: flex-start;
+				align-items: flex-start;
+				min-height: 300px;
+			}
+
+			&-answer {
+				display: flex;
+				align-items: center;
+				text-align: left;
+				font-size: 16px;
+				font-weight: 500;
+				width: 50%;
+				margin-bottom: 45px;
+
+				&:nth-child(odd) {
+					padding-right: 40px;
+				}
+				&:nth-child(even) {
+					padding-left: 40px;
+				}
+			}
+
+			&-img {
+				width: 165px;
+				height: 130px;
+				border-radius: 20px;
+				overflow: hidden;
+				flex-shrink: 0;
+				margin-right: 30px;
+			}
+
+			&-birthday {
+				position: relative;
+				min-height: 300px;
+				max-width: 653px;
+				text-align: left;
+				margin: 0 auto;
+
+				.input {
+					margin-bottom: 20px;
+
+					&[name="День"], &[name="Год"] {
+						width: 100px;
+					}
+
+					&[name="Месяц"] {
+						width: 170px;
+					}
+				}
+
+				img {
+					top: -80px;
+					right: -80px;
+					position: absolute;
+				}
+			}
+
+			&-content {
+				max-width: 653px;
+				text-align: left;
+				margin: 0 auto;
+
+				&-input, .button {
+					margin-bottom: 20px;
+				}
+
+				.input, .button {
+					display: block;
+					width: 288px;
+					min-width: auto;
+
+					&[name="Имя"] {
+						width: 200px;
+					}
+				}
+
+				.button {
+					margin-bottom: 60px;
+				}
+
+				.checkbox {
+					margin-bottom: 25px;
+					padding-left: 50px;
+				}
+			}
+		}
+	}
+
+	&-presents {
+		position: relative;
+		text-align: center;
+
+		&-title {
+			position: absolute;
+			top: 30px;
+			left: 15px;
+			right: 15px;
+		}
+
+		.curve {
+			top: -60px;
+			left: 50%;
+			margin-left: 260px;
+			transform: rotateY(180deg);
+		}
+
+		&-img {
+			position: relative;
+			margin-top: -50px;
+			margin-bottom: -5px;
+			z-index: -1;
+		}
+	}
+
+	&-result {
+		padding: 80px 0 40px;
+
+
+		&-investors {
+			margin: 60px 0 30px;
+
+			img {
+				margin-bottom: 20px;
+			}
+		}
+
+		&-present {
+			display: flex;
+			align-items: center;
+			font-weight: bold;
+			font-size: 28px;
+			margin-top: 80px;
+
+			img {
+				margin-right: 30px;
+			}
+		}
 	}
 }
 
