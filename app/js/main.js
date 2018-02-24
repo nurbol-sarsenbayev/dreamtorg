@@ -29,14 +29,14 @@ $(function() {
     onscroll();
 
     var onresize = function() {
-        if($wnd.width() < 1200) {
-            carouselLength = 6
-        } else if($wnd.width() < 992) {
-            carouselLength = 4
+        if($wnd.width() < 580) {
+            carouselLength = 2;
         } else if($wnd.width() < 768) {
             carouselLength = 3;
-        } else if($wnd.width() < 580) {
-            carouselLength = 2;
+        } else if($wnd.width() < 992) {
+            carouselLength = 4
+        } else if($wnd.width() < 1200) {
+            carouselLength = 5
         } else {
             carouselLength = 6;
         }
@@ -148,7 +148,7 @@ $(function() {
             0: { items: 2 },
             580: { items: 3 },
             768: { items: 4 },        
-            992: { items: 6 },
+            992: { items: 5 },
             1200: { items: 6 },            
         },
     });        
