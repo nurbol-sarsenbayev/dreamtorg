@@ -13,7 +13,7 @@ body {
 	color: $default_text_color;
 	line-height: $default_line_height;
 	font-size: $default_font_size;
-	font-family: $default-font;
+	font-family: $default_font;
 	font-style: normal;
 	overflow-x: auto;
 	opacity: 1;
@@ -475,7 +475,59 @@ body {
 			}
 		}
 	}
+
+	
 }
+
+.franchise {
+	&.page-wrapper {
+		min-height: 100vh;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.section-franchise {
+		font-size: 18px;
+		padding: 40px 0 280px;
+		background-repeat: no-repeat;
+		background-position: center 100%;
+		flex-grow: 1;
+
+		&-title {
+			font-weight: bold;
+			font-size: 48px;
+			margin-bottom: 30px;
+		}
+
+		&-text {
+			font-size: 24px;
+		}
+
+		.button {
+			margin-bottom: 24px;
+		}
+	}
+
+	.button {
+		max-width: 100%;
+		min-width: 400px;
+		border-radius: 28px;
+		box-shadow: 0px 1px 12.78px 5.22px rgba(0, 0, 0, 0.11);
+	}
+
+	.footer {
+		background-color: #555555;
+
+		a {
+			display: inline-block;
+			color: #fff;
+			font-size: 12px;
+			font-weight: normal;
+			text-transform: uppercase;
+			margin-bottom: 10px;
+		}
+	}
+}  
 
 .footer {
 	background-color: $accent;
@@ -486,7 +538,7 @@ body {
 
 	a {
 		color: #555555;
-	}
+	}	
 }
 
 .curve {

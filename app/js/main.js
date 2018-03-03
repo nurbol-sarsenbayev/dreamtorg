@@ -89,8 +89,6 @@ $(function() {
                     }).done(function() {                
                     });
 
-                    window.location.href = "/result.html";
-
                     $requireds.removeClass('error');
                     $form[0].reset();
                 } else {
@@ -120,6 +118,17 @@ $(function() {
         }
 
         return false;
+    });
+
+    var $remodalForm = $("#remodal-form");
+    $("#remodal-form").submit(function() {
+        if(Object.keys(utms).length > 0) {
+            for(var key in utms) {
+                $remodalForm.append("<input type='hidden' name='" + key + "' value='" + utms[key] + "'>");
+            }
+        } else {
+            $remodalForm.prepend("<input type='hidden' name='utm' value='Прямой переход'>");
+        } 
     });
 
     $(".phone").mask("+7 (999) 999 99 99", {
