@@ -119,6 +119,7 @@ $(function() {
 
         return false;
     });
+    
 
     var $remodalForm = $("#remodal-form");
     $("#remodal-form").submit(function() {
