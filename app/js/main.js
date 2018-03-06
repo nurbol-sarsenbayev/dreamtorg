@@ -63,7 +63,7 @@ $(function() {
             $requireds.each(function() {
                 $elem = $(this);
 
-                if(!$elem.val() || !checkInput($elem)) {
+                if(!$elem.val() || !checkInput($elem) || ($elem.is(':checkbox') && !$elem.is(':checked'))) {
                     $elem.addClass('error');
                     formValid = false;
                 }
@@ -84,9 +84,10 @@ $(function() {
 
                     $.ajax({
                         type: "POST",
-                        url: "/mail.php",
+                        url: "/franchise/mail.php",
                         data: data
-                    }).done(function() {                
+                    }).done(function() {     
+                        window.location = '/franchise/result.html';           
                     });
 
                     $requireds.removeClass('error');
