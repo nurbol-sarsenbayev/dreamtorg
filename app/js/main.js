@@ -163,7 +163,65 @@ $(function() {
         },
     });        
 
+    updateDate();
+
+    $(".birthday-year, .birthday-month").change(function() {
+        setDays();
+    });
+
+    $(".birthday-year, .birthday-day").change(function() {
+        var $this = $(this);
+        if($this.val()) {
+            $this.removeClass("error");
+        }
+    });
 });
+
+var months = [
+    'января',
+    'февраля',
+    'марта',
+    'апреля',
+    'мая',
+    'июня',
+    'июля',
+    'августа',
+    'сентября',
+    'октября',
+    'ноября',
+    'декабря'
+];
+
+function updateDate() {
+    var today = new Date();
+    var year = today.getFullYear();
+
+    today.setMonth(today.getMonth() + 1);
+    $(".date-after-month").html(today.getDate() + " " + months[today.getMonth()]);
+
+    var years = "<option value=''>Год</option>";
+    for(var i = year; i > year - 100; i--) {
+        years += "<option value='" + i + "'>" + i + "</option>";
+    }
+
+    $(".birthday-year").html(years);
+    setDays();    
+}
+
+function setDays() {
+    var year = +$(".birthday-year").val();
+    var month = +$(".birthday-month").val();
+    var day = +$(".birthday-day").val();
+
+    var dayCount = year ? (new Date(year, month, 0)).getDate() : 30;
+    var days = "<option value=''>День</option>";
+
+    for(var i = 1; i <= dayCount; i++) {
+        days += "<option value='" + i + "'" + (day === i ? " selected" : "") + ">" + i + "</option>";
+    }
+
+    $(".birthday-day").html(days);
+}
 
 function validateEmail(email) {
     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -172,6 +230,7 @@ function validateEmail(email) {
 
 function checkInput($input) {
     if($input.val()) {
+        console.log('val', $input.val());
         if($input.attr('type') != 'email' || validateEmail($input.val())) {
             $input.removeClass('error');
             return true;

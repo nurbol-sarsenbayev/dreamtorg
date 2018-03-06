@@ -271,6 +271,9 @@ body {
 
 			&-img {
 				width: auto !important;
+				&.active {
+					display: none;
+				}
 			}
 
 			&.active {
@@ -283,6 +286,14 @@ body {
 					}
 					&-number {
 						color: $accent;
+					}
+					&-img {
+						&:not(.active) {
+							display: none;
+						}
+						&.active {
+							display: block;
+						}
 					}
 				}
 			}
@@ -497,6 +508,7 @@ body {
 			font-weight: bold;
 			font-size: 48px;
 			margin-bottom: 30px;
+			text-transform: uppercase;
 		}
 
 		&-text {
