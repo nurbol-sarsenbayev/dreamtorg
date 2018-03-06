@@ -230,7 +230,6 @@ function validateEmail(email) {
 
 function checkInput($input) {
     if($input.val()) {
-        console.log('val', $input.val());
         if($input.attr('type') != 'email' || validateEmail($input.val())) {
             $input.removeClass('error');
             return true;
