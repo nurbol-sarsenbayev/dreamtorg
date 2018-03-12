@@ -61,10 +61,10 @@ switch ($_POST['info']) {
 
 		mail($_POST['email'], $file_subject, $file_message, $file_header);
 
-		header('Location: /franchise/test.html');
+		header('Location: /test.html');
 		break;
 	case 'Получить подарки':
-		header('Location: /franchise/result.html');
+		header('Location: /result.html');
 		break;
 	default:
 		break;

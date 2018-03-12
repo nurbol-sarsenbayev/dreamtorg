@@ -84,10 +84,10 @@ $(function() {
 
                     $.ajax({
                         type: "POST",
-                        url: "/franchise/mail.php",
+                        url: "/mail.php",
                         data: data
                     }).done(function() {     
-                        window.location = '/franchise/result.html';           
+                        window.location = '/result.html';           
                     });
 
                     $requireds.removeClass('error');
