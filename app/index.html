@@ -106,16 +106,17 @@
 
         <h3 class="modal-title">Получите подробную презентацию франшизы уже через 3 секунды!</h3>
 
-        <form action="mail.php" method="post" id="remodal-form">
+        <form action="/mail.php" method="post" id="remodal-form">
             <input type="hidden" name="antispam">
             <input type="hidden" name="info" value="Скачать презентацию">
-            <input type="text" name="Имя" placeholder="Введите имя*" required="" class="input">
-            <input type="tel" name="Телефон" placeholder="Введите телефон*" required="" class="phone input">
+            <input type="text" name="name" placeholder="Введите имя*" required="" class="input">
+            <input type="tel" name="phone" placeholder="Введите телефон*" required="" class="phone input">
             <input type="email" name="email" placeholder="Введите e-mail*" required="" class="input">
             <button class="button remodal__submit" id="ska4at_presentatsiu">Скачать презентацию</button>
             <div class="text-left">
                 <div class="check">
-                    <input type="checkbox" name="обработку персональных данных и политики конфиденциальности" id="person1" class="checkbox" checked="" hidden="" required="">
+                     <input type="hidden" name="policy1" value="обработку персональных данных и политики конфиденциальности">         
+                    <input type="checkbox" name="policy1_value" id="person1" class="checkbox" checked hidden required value="Да">
                     <label for="person1" class="form-copy">
                         Нажимая на кнопку, я даю согласие на 
                         <a href="./files/person.pdf" target="_blank">обработку персональных данных</a> 
@@ -123,7 +124,8 @@
                     </label>
                 </div>
                 <div class="check">
-                    <input type="checkbox" name="согласен на получение информации" id="person2" class="checkbox" checked="" hidden="">
+                    <input type="hidden" name="policy2" value="согласен на получение информации">      
+                    <input type="checkbox" name="person" id="person2" class="checkbox" checked hidden required value="Да">
                     <label for="person2" class="form-copy">
                         Я согласен на получение информации <br>от avtomatizacia.kz
                         <p>*Все поля обязательны для заполнения</p> 
