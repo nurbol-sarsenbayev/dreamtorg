@@ -72,20 +72,20 @@ $data['UF_CRM_1463741187']="franchise.evodreamholding.com";
 if($_POST['keyword'])
   $data['UF_CRM_1406282339']=$keyword;
 
-if($tags['utm_medium'])
-  $data['UF_CRM_1463742682']=$tags['utm_medium'];
+if($_POST['utm_medium'])
+  $data['UF_CRM_1463742682']=$_POST['utm_medium'];
 
-if($tags['utm_source'])
-  $data['UF_CRM_1463742727']=$tags['utm_source'];  
+if($_POST['utm_source'])
+  $data['UF_CRM_1463742727']=$_POST['utm_source'];  
 
-if($tags['utm_campaign'])
-  $data['UF_CRM_1463742749']=$tags['utm_campaign'];        
+if($_POST['utm_campaign'])
+  $data['UF_CRM_1463742749']=$_POST['utm_campaign'];        
 
-if($tags['utm_term'])
-  $data['UF_CRM_1463742765']=$tags['utm_term'];    
+if($_POST['utm_term'])
+  $data['UF_CRM_1463742765']=$_POST['utm_term'];    
 
-if($tags['utm_content'])
-  $data['UF_CRM_1463742810']=$tags['utm_content'];     
+if($_POST['utm_content'])
+  $data['UF_CRM_1463742810']=$_POST['utm_content'];     
 
 if($block)
   $data['UF_CRM_1463742789']=$block;          
